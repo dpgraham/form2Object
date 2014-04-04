@@ -17,7 +17,7 @@ test( "Test form2object method", function(){
             formOne.append( $("<textarea>").attr("name", "obj[" + i + "textarea][" + j + "]").html(j) );
         }
     }
-    console.log(formOne.form2object());
+
     deepEqual( {obj: testObject}, formOne.form2object() );
 
     var formTwo = $("<form></form>");
@@ -26,7 +26,14 @@ test( "Test form2object method", function(){
         testObject[i + ""] = i + "";
         var inp = $("<input>").attr("name", i + "").val(i + "");
         formTwo.append(inp);
+
+        testObject[i + "sel"] = i + "";
+        formTwo.append( $("<select></select>").attr("name", "" + i + "sel").html("<option>5</option><option>2</option><option selected>" + i + "</option>"));
+
+        testObject[i + "textarea"] = i + "";
+        formTwo.append( $("<textarea>").attr("name", "" + i + "textarea").html(i) );
     }
 
+    deepEqual( testObject, formTwo.form2object() );
     deepEqual( testObject, formTwo.form2object() );
 });

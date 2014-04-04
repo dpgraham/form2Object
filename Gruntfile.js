@@ -15,18 +15,16 @@ module.exports = function(grunt) {
         connect: {
             server: {
                 options: {
-                    port: 9001,
-                    base: "../dataDashAction"
+                    port: 9001
                 }
             }
         },
-
 
         qunit: {
             all: {
                 options: {
                     urls: [
-                        "http://localhost:9001/tests/base.html"
+                        "http://localhost:9001/tests/tests.html"
                     ]
                 }
             }
@@ -43,6 +41,6 @@ module.exports = function(grunt) {
     });
 
     // Default task(s).
-    grunt.registerTask('travis', ['connect:server', 'qunit']);
+    grunt.registerTask('test', ['connect:server', 'jshint', 'qunit']);
 
 };
