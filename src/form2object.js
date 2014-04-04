@@ -24,20 +24,24 @@
         $("input, select, textarea", this).each(function(){
 
             var name = $(this).attr("name");
-            var value;
-            var nodeName = $(this)[0].nodeName.toLowerCase();
 
-            if(nodeName=="input" || nodeName=="textarea"){
-                value = $(this).val();
-            } else if(nodeName=="select"  || nodeName=="textarea"){
-                value = $("option:selected", this).html();
+            // Don't do anything if the name attribute was not set
+            if(name){
+                var value;
+                var nodeName = $(this)[0].nodeName.toLowerCase();
+
+                if(nodeName=="input" || nodeName=="textarea"){
+                    value = $(this).val();
+                } else if(nodeName=="select"  || nodeName=="textarea"){
+                    value = $("option:selected", this).html();
+                }
+
+                // Tokenize the name around square brackets
+                var tokens = tokenize(name);
+
+                // Add this value to the object
+                addToObject(tokens, value, objectOut);
             }
-
-            // Tokenize the name around square brackets
-            var tokens = tokenize(name);
-
-            // Add this value to the object
-            addToObject(tokens, value, objectOut);
         });
 
         return objectOut;

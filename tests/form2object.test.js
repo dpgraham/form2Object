@@ -24,16 +24,23 @@ test( "Test form2object method", function(){
     var testObject = {};
     for(var i=0; i<30; i++){
         testObject[i + ""] = i + "";
+
+        // Add a generic input
         var inp = $("<input>").attr("name", i + "").val(i + "");
         formTwo.append(inp);
 
+        // Add a select element
         testObject[i + "sel"] = i + "";
         formTwo.append( $("<select></select>").attr("name", "" + i + "sel").html("<option>5</option><option>2</option><option selected>" + i + "</option>"));
 
+        // Add a textarea
         testObject[i + "textarea"] = i + "";
         formTwo.append( $("<textarea>").attr("name", "" + i + "textarea").html(i) );
+
+        // Add an element with no name
+        formTwo.append( $("<input>") )
     }
 
     deepEqual( testObject, formTwo.form2object() );
-    deepEqual( testObject, formTwo.form2object() );
+
 });
